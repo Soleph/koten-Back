@@ -14,4 +14,21 @@ module.exports = {
 
     return res.json(post);
   },
+
+  async update(req, res) {
+    const { title } = req.body;
+
+    const post = await Post.update(
+      { title },
+      { returning: true, where: { id: req.params.id } }
+    );
+
+    return res.json(post);
+  },
+
+  async delete(req, res) {
+    await Post.destroy({ where: { id: req.params.id } });
+
+    return res.json('sucess');
+  },
 };
