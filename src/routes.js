@@ -13,7 +13,7 @@ routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
-routes.use(authMiddleware.authMiddleware);
+routes.use(authMiddleware.auth);
 
 routes.get('/posts', PostController.index);
 routes.post('/posts', PostController.store);
