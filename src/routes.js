@@ -1,13 +1,19 @@
 const express = require('express');
 
 const UserController = require('./controllers/UserController');
+const SessionController = require('./controllers/SessionController');
 const PostController = require('./controllers/PostController');
 const TopicController = require('./controllers/TopicController');
+
+const authMiddleware = require('./middlewares/auth');
 
 const routes = express.Router();
 
 routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
+routes.post('/sessions', SessionController.store);
+
+routes.use(authMiddleware.authMiddleware);
 
 routes.get('/posts', PostController.index);
 routes.post('/posts', PostController.store);
