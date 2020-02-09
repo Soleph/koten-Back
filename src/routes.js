@@ -9,7 +9,6 @@ const authMiddleware = require('./middlewares/auth');
 
 const routes = express.Router();
 
-routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
