@@ -1,5 +1,6 @@
-const authConfig = require('../config/auth');
+const { promisify } = require('util');
 
+const authConfig = require('../config/auth');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     try {
       const token = req.headers.authorization.split(' ')[1];
 
-      const decoded = jwt.verify(token, authConfig.secret);
+      const decoded = await promisify(jwt.verify)(token, authConfig.secret);
 
       req.userId = decoded.id;
 
