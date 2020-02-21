@@ -12,16 +12,26 @@ const routes = express.Router();
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
-routes.use(authMiddleware.auth);
-
 routes.get('/posts', PostController.index);
-routes.post('/posts', PostController.store);
-routes.put('/posts/:id', PostController.update);
-routes.delete('/posts/:id', PostController.delete);
+routes.post('/posts', authMiddleware.auth, PostController.store);
+routes.put('/posts/:id', authMiddleware.auth, PostController.update);
+routes.delete('/posts/:id', authMiddleware.auth, PostController.delete);
 
 routes.get('/posts/:post_id/topics', TopicController.index);
-routes.post('/posts/:post_id/topics', TopicController.store);
-routes.put('/posts/:post_id/topics/:id', TopicController.update);
-routes.delete('/posts/:post_id/topics/:id', TopicController.delete);
+routes.post(
+  '/posts/:post_id/topics',
+  authMiddleware.auth,
+  TopicController.store
+);
+routes.put(
+  '/posts/:post_id/topics/:id',
+  authMiddleware.auth,
+  TopicController.update
+);
+routes.delete(
+  '/posts/:post_id/topics/:id',
+  authMiddleware.auth,
+  TopicController.delete
+);
 
 module.exports = routes;
