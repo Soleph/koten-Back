@@ -9,7 +9,7 @@ const authMiddleware = require('./middlewares/auth');
 
 const routes = express.Router();
 
-routes.post('/users', UserController.store);
+routes.post('/users', authMiddleware.auth, UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.get('/posts', PostController.index);
