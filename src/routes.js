@@ -5,33 +5,19 @@ const SessionController = require('./controllers/SessionController');
 const PostController = require('./controllers/PostController');
 const TopicController = require('./controllers/TopicController');
 
-const authMiddleware = require('./middlewares/auth');
-
 const routes = express.Router();
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.get('/posts', PostController.index);
-routes.post('/posts', authMiddleware.auth, PostController.store);
-routes.put('/posts/:id', authMiddleware.auth, PostController.update);
-routes.delete('/posts/:id', authMiddleware.auth, PostController.delete);
+routes.post('/posts', PostController.store);
+routes.put('/posts/:id', PostController.update);
+routes.delete('/posts/:id', PostController.delete);
 
 routes.get('/posts/:post_id/topics', TopicController.index);
-routes.post(
-  '/posts/:post_id/topics',
-  authMiddleware.auth,
-  TopicController.store
-);
-routes.put(
-  '/posts/:post_id/topics/:id',
-  authMiddleware.auth,
-  TopicController.update
-);
-routes.delete(
-  '/posts/:post_id/topics/:id',
-  authMiddleware.auth,
-  TopicController.delete
-);
+routes.post('/posts/:post_id/topics', TopicController.store);
+routes.put('/posts/:post_id/topics/:id', TopicController.update);
+routes.delete('/posts/:post_id/topics/:id', TopicController.delete);
 
 module.exports = routes;
